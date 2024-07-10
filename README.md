@@ -86,8 +86,28 @@ We'd love to hear about
 * How you would go about testing
 * What you might do differently
 
+## Part 3 response:  
+The MessageModel could be updated, and in message.data.ts the code from conversation.data.ts could be adapted to something like:  
+```
+async updateTags(
+    conversationId: string,
+    tags: Tag[],
+  ): Promise<MessageModel> {
+    const result = await this.ChatMessageModel.findOneAndUpdate(
+      { _id: messageId },
+      { $set: { tags } },
+      { new: true },
+    );
+    if (!result) throw new Error('Could not update tags on message');
+    const message = chatMessageToObject(result);
+
+    this.messageCacheManagerService.set(message, messageId);
+    return message;
+  }
+ ```
+
 # Additional
-The following docs are from the live service repo. You may find them helpful. 
+The following docs are from the live service repo. You may find them helpful.   
 
 
 # development
