@@ -38,7 +38,7 @@ lerna-debug.log*
 node_modules
 
 # envs
-.env
+.env*
 copied_*
 
 outside_in/**/*
